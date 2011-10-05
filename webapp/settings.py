@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'datasets',
     'tags',
     'users',
+    'tagging',
 )
 
 # A sample logging configuration. The only tangible logging
