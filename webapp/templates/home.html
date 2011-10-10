@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>welcome</h2>
+{% endblock header %}
+
+{% block content %}
+    {% if datasets %}
+        <h3>recent datasets</h3>
+        <ul>
+            {% for d in datasets %}
+                <li>{{ d.name }} - {{ d.user.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>no datasets found</h3>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>datasets</h2>
+{% endblock header %}
+
+{% block content %}
+    {% if datasets.count > 0 %}
+        <h3>recently uploaded datasets</h3>
+        <ul>
+            {% for d in datasets.object_list %}
+                <li>{{ d.name }} - {{ d.user.name }}</li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            <ul>
+                {% if datasets.has_previous %}
+                    <li class="prev"><a href="?page={{ contacts.previous_page_number }}">&larr; previous</a></li>
+                {% else %}
+                    <li class="prev disabled">&larr; previous</li>
+                {% endif %}
+
+                {% for page in datasets.page_range %}
+                    {% if page == datasets.number %}
+                        <li class="active"><a href="?page={{ datasets.number }}">{{ datasets.number }}</li>
+                    {% else %}
+                        <li><a href="?page={{ page }}">{{ page }}</li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if datasets.has_next %}
+                    <li class="next"><a href="?page={{ contacts.next_page_number }}">next &rarr;</a></li>
+                {% else %}
+                    <li class="next disabled">next &rarr;</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <h3>no datasets found</h3>
+    {% endif %}
+{% endblock content %}
