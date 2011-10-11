@@ -57,25 +57,3 @@ def login(request):
         'form':form,
         'next':next,
     }, RequestContext(request))
-
-    # if request.method == 'POST':
-    #     form = AuthenticationForm(request, request.POST)
-    #     if form.is_valid():
-    #         print "form.is_valid()"
-    #         user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-    #         if user is not None:
-    #             print "user is not None"
-    #             if user.is_active:
-    #                 print "user.is_active"
-    #                 auth.login(request, user)
-    #                 return redirect(request.GET.get('next','/'))
-    #             else:
-    #                 pass # send an "inactive" message
-    #         else:
-    #             pass # send an "error" message
-    # else:
-    #     form = AuthenticationForm()
-    
-    # return render_to_response('registration/login.html', {
-    #     'form':form,
-    # }, RequestContext(request))

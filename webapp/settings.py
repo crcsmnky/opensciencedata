@@ -157,7 +157,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 FORCE_LOWERCASE_TAGS = True
 
 try:
-    from aws_settings import *
+    from s3_settings import *
 except ImportError:
     pass
     
