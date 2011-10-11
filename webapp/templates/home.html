@@ -1,18 +1,29 @@
 {% extends "base.html" %}
 
 {% block header %}
-    <h2>welcome</h2>
+    <h2>welcome <small>to open science data, a site for scientists to share data</small></h2>
 {% endblock header %}
 
 {% block content %}
-    {% if datasets %}
+    {% if top_datasets %}
+        <h3>top datasets</h3>
+        <ol>
+            {% for d in top_datasets %}
+                <li>{{ d.name }} ({{ d.downloads }} downloads)</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h3>no top datasets</h3>
+    {% endif %}
+
+    {% if recent_datasets %}
         <h3>recent datasets</h3>
         <ul>
-            {% for d in datasets %}
+            {% for d in recent_datasets %}
                 <li>{{ d.name }} - {{ d.user.name }}</li>
             {% endfor %}
         </ul>
     {% else %}
-        <h3>no datasets found</h3>
+        <h3>no recent datasets</h3>
     {% endif %}
 {% endblock content %}

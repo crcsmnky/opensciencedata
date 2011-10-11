@@ -1,21 +1,22 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
 from local_settings import *
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'webapp.views.home', name='home'),
-    url(r'^about', 'webapp.views.about', name='about'),
-    url(r'^contact', 'webapp.views.contact', name='contact'),
+    (r'^$', 'webapp.views.home'),
+    (r'^about', 'webapp.views.about'),
+    (r'^contact', 'webapp.views.contact'),
+    (r'^signup', 'webapp.views.signup'),
 
-    url(r'^users/', include('users.urls')),
-    url(r'^datasets/', include('datasets.urls')),
-    url(r'^tags/', include('tags.urls')),
+    (r'^users/', include('users.urls')),
+    (r'^datasets/', include('datasets.urls')),
+    (r'^tags/', include('tags.urls')),
 
-    url(r'^login/$', login),
-    url(r'^logout/$', logout),
+    # (r'^login/$', 'django.contrib.auth.views.login'),
+    (r'^login/$', 'webapp.views.login'),
+    (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './static'}),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './uploads'}),
@@ -26,5 +27,5 @@ if DEBUG:
         # Uncomment the admin/doc line below to enable admin documentation:
         # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
         # Uncomment the next line to enable the admin:
-        url(r'^admin/', include(admin.site.urls)),
+        (r'^admin/', include(admin.site.urls)),
     )

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>login <small>to open science data</small></h2>
+{% endblock header %}
+
+{% block content %}
+
+    {% include "form_error.html" with error_message="Your username/password did not match. Please try again."%}
+
+    <form class="form-stacked" method="post" action="/login/">
+        {% include "form.html" with action="login" %}
+    </form>
+
+{% endblock content %}
