@@ -27,38 +27,55 @@ def contact(request):
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth.authenticate(username=user.username, password=user.password)
-            auth.login(request, user)
-            messages.success(request, 'Your account was successfully created')
-            redirect(request.GET.get('next','/'))
-    else:
-        form = SignupForm()
+    form = SignupForm(request.POST or None)
+    next = request.GET.get('next', '/')
+
+    if form.is_valid():
+        new_user = form.save()
+        user = auth.authenticate(username=new_user.username, password=form.cleaned_data['password1'])
+        auth.login(request, user)
+        messages.success(request, 'Your account was successfully created')
+        return redirect(next)
 
     return render_to_response('registration/signup.html', {
         'form':form,
-        }, RequestContext(request))
+        'next':next,
+    }, RequestContext(request))
 
 
 def login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            if user is not None:
-                if user.is_active:
-                    auth.login(request, user)
-                    redirect(request.GET.get('next','/'))
-                else:
-                    pass # send an "inactive" message
-            else:
-                pass # send an "error" message
-    else:
-        form = AuthenticationForm()
+    if request.user.is_authenticated():
+        return redirect('/')
+    
+    form = AuthenticationForm(None, request.POST or None)
+
+    if form.is_valid():
+        auth.login(request, form.get_user())
+        return redirect(next)
     
     return render_to_response('registration/login.html', {
         'form':form,
-        }, RequestContext(request))
+        'next':next,
+    }, RequestContext(request))
+
+    # if request.method == 'POST':
+    #     form = AuthenticationForm(request, request.POST)
+    #     if form.is_valid():
+    #         print "form.is_valid()"
+    #         user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+    #         if user is not None:
+    #             print "user is not None"
+    #             if user.is_active:
+    #                 print "user.is_active"
+    #                 auth.login(request, user)
+    #                 return redirect(request.GET.get('next','/'))
+    #             else:
+    #                 pass # send an "inactive" message
+    #         else:
+    #             pass # send an "error" message
+    # else:
+    #     form = AuthenticationForm()
+    
+    # return render_to_response('registration/login.html', {
+    #     'form':form,
+    # }, RequestContext(request))
