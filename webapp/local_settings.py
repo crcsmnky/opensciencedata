@@ -43,9 +43,9 @@ MEDIA_URL = 'http://localhost:8000/uploads/'
 
 STATIC_URL = 'http://localhost:8000/static/'
 
-LOGIN_URL = '/account/login'
+LOGIN_URL = '/login'
 
-LOGIN_REDIRECT_URL = '/comp/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'templates'),

@@ -1,4 +1,5 @@
 # Django settings for webapp project.
+import os
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -78,6 +79,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(os.path.dirname(__file__), 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -118,12 +120,9 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'datasets',
     'tags',
@@ -154,6 +153,13 @@ LOGGING = {
     }
 }
 
+FORCE_LOWERCASE_TAGS = True
+
+try:
+    from aws_settings import *
+except ImportError:
+    pass
+    
 try:
     from local_settings import *
 except ImportError:
