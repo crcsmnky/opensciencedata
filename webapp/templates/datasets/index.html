@@ -5,37 +5,48 @@
 {% endblock header %}
 
 {% block content %}
-    {% if datasets.count > 0 %}
+    {% if datasets.object_list|length > 0 %}
         <h3>recently uploaded datasets</h3>
         <ul>
             {% for d in datasets.object_list %}
-                <li>{{ d.name }} - {{ d.user.name }}</li>
+                <li>
+                    <a href="/datasets/{{ d.id }}/view">{{ d.name }}</a> - {{ d.updated }}, {{ d.user.username }}
+                </li>
             {% endfor %}
         </ul>
-        <div class="pagination">
-            <ul>
-                {% if datasets.has_previous %}
-                    <li class="prev"><a href="?page={{ contacts.previous_page_number }}">&larr; previous</a></li>
-                {% else %}
-                    <li class="prev disabled">&larr; previous</li>
-                {% endif %}
 
-                {% for page in datasets.page_range %}
-                    {% if page == datasets.number %}
-                        <li class="active"><a href="?page={{ datasets.number }}">{{ datasets.number }}</li>
+        {% if datasets.num_pages > 1 %}
+            <div class="pagination">
+                <ul>
+                    {% if datasets.has_previous %}
+                        <li class="prev"><a href="?page={{ contacts.previous_page_number }}">&larr; previous</a></li>
                     {% else %}
-                        <li><a href="?page={{ page }}">{{ page }}</li>
+                        <!-- <li class="prev disabled">&larr; previous</li> -->
                     {% endif %}
-                {% endfor %}
-                
-                {% if datasets.has_next %}
-                    <li class="next"><a href="?page={{ contacts.next_page_number }}">next &rarr;</a></li>
-                {% else %}
-                    <li class="next disabled">next &rarr;</li>
-                {% endif %}
-            </ul>
-        </div>
+                    &nbsp;
+                    {% for page in datasets.page_range %}
+                        {% if page == datasets.number %}
+                            <li class="active"><a href="?page={{ datasets.number }}">{{ datasets.number }}</li>
+                        {% else %}
+                            <li><a href="?page={{ page }}">{{ page }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    &nbsp;
+                    {% if datasets.has_next %}
+                        <li class="next"><a href="?page={{ contacts.next_page_number }}">next &rarr;</a></li>
+                    {% else %}
+                        <!-- <li class="next disabled">next &rarr;</li> -->
+                    {% endif %}
+                </ul>
+            </div>            
+        {% endif %}
     {% else %}
         <h3>no datasets found</h3>
     {% endif %}
 {% endblock content %}
+
+{% block sidebar %}
+    <ul class="unstyled">
+        <li><a href="/datasets/add">add a new dataset</a></li>
+    </ul>    
+{% endblock sidebar %}

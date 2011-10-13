@@ -9,6 +9,17 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-26261405-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
     </head>
     <body>
         <div class="topbar">
@@ -16,8 +27,10 @@
                 <div class="container">
                     <a class="brand" href="/">open science data</a>
                     <ul class="nav">
-                        <!-- <li><a href="/">home</a></li> -->
                         <li><a href="/datasets">datasets</a></li>
+<!--                         {% if user.is_authenticated %}
+                            <li><a href="/datasets/add">add new</a></li>
+                        {% endif %} -->
                         <li><a href="/tags">tags</a></li>
                         <li><a href="/about">about</a></li>
                         <li><a href="/contact">contact</a></li>
@@ -57,13 +70,16 @@
                 </div>
 
                 <div class="span4">
-                    {% block sidebar %}
+                    {% block sidebar %}     
+                    {% endblock sidebar %}
+
+                    {% block links %}
                         <ul class="unstyled">
                             <li>follow us on twitter</li>
-                            <li>lorem ipsum</li>
-                            <li>lorem ipsum</li>
+                            <li>like us on facebook</li>
+                            <li>subscribe to our RSS feed</li>
                         </ul>
-                    {% endblock sidebar %}
+                    {% endblock links %}
                 </div>
             </div>
 
@@ -71,6 +87,16 @@
                 <p>&copy; open science data 2011</p>
             </footer>
         </div>
+
+        <!-- UserVoice -->
+        <script type="text/javascript">
+          var uvOptions = {};
+          (function() {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/JXyYcr1Im1hCPK7mi3I9w.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+          })();
+        </script>
 
     </body>
 </html>

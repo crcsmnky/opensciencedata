@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block header %}
-    
+    <h2>add <small>a new dataset to share with the community</small></h2>
 {% endblock header %}
 
 {% block content %}
-    
+    {% include "form_error.html" with error_message="There was a problem with your dataset upload. Please try again."%}
+
+    <form enctype="multipart/form-data" class="form-stacked" method="post" action="/datasets/add/">
+        {% include "form.html" with action="add" %}
+    </form>
+
 {% endblock content %}

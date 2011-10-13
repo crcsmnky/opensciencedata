@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 
 {% block header %}
-
+    <h2>{{ dataset.name }} <small>uploaded by {{ dataset.user.username }}</small></h2>
 {% endblock header %}
 
 {% block content %}
-    
+    <p>{{ dataset.description }}</p>
+    <p><a target="_blank" href="/datasets/{{ dataset.id }}/download">download dataset</a></p>
+    <p><strong>uploaded:</strong> {{ dataset.uploaded }}</p>
+    <p><strong>updated:</strong> {{ dataset.updated }}</p>
+    <p><strong>downloads:</strong> {{ dataset.downloads }}</p>
+    <p><strong>tags:</strong> 
+        {% for tag in tags %}
+            <a href="/tags/{{ tag }}">{{ tag }}</a>
+        {% endfor %}
+    </p>
 {% endblock content %}

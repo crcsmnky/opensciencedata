@@ -30,15 +30,12 @@ def index(request):
 
 @login_required
 def add_dataset(request):
-    if request.method == 'POST':
-        form = DatasetForm(request.POST)
-        if form.is_valid():
-            new_dataset = form.save(commit=False)
-            new_dataset.user = request.user
-            new_dataset.save()
-            return redirect('/datasets/%d' % new_dataset.id)
-    else:
-        form = DatasetForm()
+    form = DatasetForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        new_dataset = form.save(commit=False)
+        new_dataset.user = request.user
+        new_dataset.save()
+        return redirect('/datasets/%d/view' % new_dataset.id)
 
     return render_to_response('datasets/add.html',{
         'form': form,
@@ -47,8 +44,10 @@ def add_dataset(request):
 
 def view_dataset(request, id):
     dataset = get_object_or_404(Dataset, id=id)
+    tags = dataset.tags.split()
     return render_to_response('datasets/view.html',{
         'dataset': dataset,
+        'tags':tags,
     }, RequestContext(request))
 
 
@@ -74,4 +73,4 @@ def download_dataset(request, id):
     dataset = get_object_or_404(Dataset, id=id)
     dataset.downloads += 1
     dataset.save()
-    redirect(dataset.data.url)
+    return redirect(dataset.data.url)
