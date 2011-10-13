@@ -130,9 +130,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     # 'django.contrib.admindocs',
-    'datasets',
-    'tags',
-    'users',
+    'webapp.datasets',
+    'webapp.tags',
+    'webapp.users',
     'tagging',
 )
 
