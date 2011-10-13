@@ -9,9 +9,11 @@ from datasets.models import Dataset
 from users.forms import SignupForm
 
 def home(request):
-    datasets = Dataset.objects.order_by('updated')[:10]
+    recent_datasets = Dataset.objects.order_by('updated')[:10]
+    top_datasets = Dataset.objects.order_by('downloads')[:10]
     return render_to_response('home.html',{
-        'datasets': datasets,
+        'top_datasets': top_datasets,
+        'recent_datasets': recent_datasets,
         },RequestContext(request)
     )
 
@@ -48,7 +50,8 @@ def login(request):
         return redirect('/')
     
     form = AuthenticationForm(None, request.POST or None)
-
+    next = request.GET.get('next', '/')
+    
     if form.is_valid():
         auth.login(request, form.get_user())
         return redirect(next)

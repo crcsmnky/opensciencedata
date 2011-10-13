@@ -21,7 +21,9 @@
         <h3>top datasets</h3>
         <ol>
             {% for d in top_datasets %}
-                <li>{{ d.name }} ({{ d.downloads }} downloads)</li>
+                <li>
+                    <a href="/datasets/{{ d.id }}/view">{{ d.name }}</a> ({{ d.downloads }} downloads)
+                </li>
             {% endfor %}
         </ol>
     {% else %}
@@ -30,11 +32,13 @@
 
     {% if recent_datasets %}
         <h3>recent datasets</h3>
-        <ul>
+        <ol>
             {% for d in recent_datasets %}
-                <li>{{ d.name }} - {{ d.user.name }}</li>
+                <li>
+                    <a href="/datasets/{{ d.id }}/view">{{ d.name }}</a> - {{ d.updated }}
+                </li>
             {% endfor %}
-        </ul>
+        </ol>
     {% else %}
         <h3>no recent datasets</h3>
     {% endif %}
