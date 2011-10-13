@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 
 {% block header %}
-    
+    <h2>tags <small>for all datasets</small></h2>
 {% endblock header %}
 
 {% block content %}
-    
+    {% if tags %}
+        <h3>all tags</h3>
+        <ol>
+            {% for tag in tags %}
+                <li>
+                    <a href="/tags/{{ tag.name }}">{{ tag.name }}</a> 
+                        - {{ tag.count }} dataset{{ tag.count|pluralize }}
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h3>no tags found</h3>
+    {% endif %}
 {% endblock content %}

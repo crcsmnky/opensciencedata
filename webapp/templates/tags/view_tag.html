@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>{{ tag_name }}</h2>
+{% endblock header %}
+
+{% block content %}
+    {% if datasets|length > 0 %}
+        <h3>there {{ datasets|length|pluralize:"is,are" }} {{ datasets|length}} dataset{{ datasets|length|pluralize }} tagged '{{ tag_name }}'</h3>
+
+        <ol>
+            {% for dataset in datasets %}
+                <li>
+                    <a href="/datasets/{{ dataset.id }}">{{ dataset.name }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h3>no datasets tagged '{{ tag_name }}'</h3>
+    {% endif %}
+{% endblock content %}
