@@ -1,5 +1,6 @@
 # Django settings for webapp project.
 import os
+import json
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -10,20 +11,24 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+try:
+    env = json.load(open('/home/dotcloud/environment.json'))
+except IOError:
+    env = {
+        'DOTCLOUD_DB_SQL_LOGIN':'',
+        'DOTCLOUD_DB_SQL_PASSWORD':'',
+        'DOTCLOUD_DB_SQL_HOST':'',
+        'DOTCLOUD_DB_SQL_PORT':0,
+    }
+
 DATABASES = {
     'default': {
-        # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': '',
-        # Or path to database file if using sqlite3.
-        'NAME': '',
-        # Not used with sqlite3.
-        'USER': '',
-        # Not used with sqlite3.
-        'PASSWORD': '',
-        # Set to empty string for localhost. Not used with sqlite3.
-        'HOST': '',
-        # Set to empty string for default. Not used with sqlite3.
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'template1',
+        'USER': env['DOTCLOUD_DB_SQL_LOGIN'],
+        'PASSWORD': env['DOTCLOUD_DB_SQL_PASSWORD'],
+        'HOST': env['DOTCLOUD_DB_SQL_HOST'],
+        'PORT': int(env['DOTCLOUD_DB_SQL_PORT']),
     }
 }
 
@@ -111,9 +116,10 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'webapp.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(os.path.dirname(__file__), 'templates'),
+    os.path.join(os.path.dirname(__file__), 'templates', 'datasets'),
+    os.path.join(os.path.dirname(__file__), 'templates', 'users'),
+    os.path.join(os.path.dirname(__file__), 'templates', 'tags'),
 )
 
 INSTALLED_APPS = (
@@ -153,15 +159,12 @@ LOGGING = {
     }
 }
 
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 FORCE_LOWERCASE_TAGS = True
 
 try:
     from s3_settings import *
-except ImportError:
-    pass
-    
-try:
-    from local_settings import *
 except ImportError:
     pass
