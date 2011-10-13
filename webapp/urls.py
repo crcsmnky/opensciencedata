@@ -10,9 +10,9 @@ urlpatterns = patterns('',
     (r'^contact', 'webapp.views.contact'),
     (r'^signup', 'webapp.views.signup'),
 
-    (r'^users/', include('users.urls')),
-    (r'^datasets/', include('datasets.urls')),
-    (r'^tags/', include('tags.urls')),
+    (r'^users/', include('webapp.users.urls')),
+    (r'^datasets/', include('webapp.datasets.urls')),
+    (r'^tags/', include('webapp.tags.urls')),
 
     # (r'^login/$', 'django.contrib.auth.views.login'),
     (r'^login/$', 'webapp.views.login'),
