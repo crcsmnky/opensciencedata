@@ -5,8 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from django.contrib import messages
 
-from datasets.models import Dataset
-from users.forms import SignupForm
+from webapp.datasets.models import Dataset
+from webapp.users.forms import SignupForm
 
 def home(request):
     recent_datasets = Dataset.objects.order_by('updated')[:10]

@@ -6,8 +6,8 @@ from django.template import RequestContext
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-from datasets.models import Dataset
-from datasets.forms import DatasetForm
+from webapp.datasets.models import Dataset
+from webapp.datasets.forms import DatasetForm
 
 def index(request):
     datasets_all = Dataset.objects.order_by('updated').all()

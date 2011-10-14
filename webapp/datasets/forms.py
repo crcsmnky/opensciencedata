@@ -1,5 +1,5 @@
 from django import forms
-from datasets.models import Dataset
+from webapp.datasets.models import Dataset
 
 class DatasetForm(forms.ModelForm):
     class Meta:

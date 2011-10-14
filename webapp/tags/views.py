@@ -4,7 +4,7 @@ from django.template import RequestContext
 
 from tagging.models import Tag, TaggedItem
 
-from datasets.models import Dataset
+from webapp.datasets.models import Dataset
 
 def index(request):
     tags = Tag.objects.usage_for_model(Dataset, counts=True)
