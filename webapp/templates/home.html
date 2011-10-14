@@ -22,7 +22,7 @@
         <ol>
             {% for d in top_datasets %}
                 <li>
-                    <a href="/datasets/{{ d.id }}/view">{{ d.name }}</a> ({{ d.downloads }} downloads)
+                    <a href="/datasets/{{ d.id }}/view">{{ d.name }}</a> ({{ d.downloads }} download{{ d.downloads|pluralize }})
                 </li>
             {% endfor %}
         </ol>
