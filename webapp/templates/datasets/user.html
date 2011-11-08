@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% if user %}
+        <h2>{{ user.user.username}}'s <small>datasets</small></h2>
+    {% else %}
+        <h2>user not found</h2>    
+    {% endif %}
+{% endblock header %}
+
+{% block content %}
+    {% if datasets|length > 0 %}
+        <ol>
+            {% for d in datasets %}
+                <li><a href="/datasets/{{ d.id }}/view">{{ d.name }}</a> - {{ d.updated }} ({{ d.downloads}} download{{ d.downloads|pluralize }})
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endblock content %}

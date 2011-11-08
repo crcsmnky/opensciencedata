@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>sign in <small>to upload and share datasets</small></h2>
+{% endblock header %}
+
+{% block content %}
+
+    {% include "form_error.html" with error_message="Your login information was incorrect. Please try again."%}
+
+    <form class="form-stacked" method="post" action="">
+        {% include "form.html" with action="sign in" %}
+    </form>
+
+    <p>
+        <small><a href="{% url userena_password_reset %}" title="Forgot your password?">Forgot your password?</a></small>
+    </p>
+
+{% endblock content %}

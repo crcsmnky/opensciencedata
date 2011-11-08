@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h2>signup complete</h2>
+{% endblock header %}
+
+{% block content %}
+    {% if userena_activation_required %}
+        <p>You have been send an e-mail with an activation link to the supplied email.</p>
+        <p>We will store your signup information for {{ userena_activation_days }} days on our server.</p>
+    {% else  %}
+        <p>You can now use the supplied credentials to signin.</p>
+    {% endif %}
+
+{% endblock content %}
