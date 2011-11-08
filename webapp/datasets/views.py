@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 from webapp.datasets.models import Dataset
 from webapp.datasets.forms import DatasetForm
+from webapp.users.models import UserProfile
 
 def index(request):
     datasets_all = Dataset.objects.order_by('updated').all()
@@ -74,3 +75,12 @@ def download_dataset(request, id):
     dataset.downloads += 1
     dataset.save()
     return redirect(dataset.data.url)
+
+def user_datasets(request, username):
+    user = get_object_or_404(UserProfile, user__username=username)
+    datasets = Dataset.objects.filter(user=user).order_by('downloads')
+
+    return render_to_response('datasets/user.html', {
+        'user':user,
+        'datasets':datasets,
+    }, context_instance=RequestContext(request))
