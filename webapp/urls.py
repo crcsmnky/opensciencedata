@@ -8,15 +8,13 @@ urlpatterns = patterns('',
     (r'^$', 'webapp.views.home'),
     (r'^about', 'webapp.views.about'),
     (r'^contact', 'webapp.views.contact'),
-    (r'^signup', 'webapp.views.signup'),
+    # (r'^signup', 'webapp.views.signup'),
 
-    (r'^users/', include('webapp.users.urls')),
+    # (r'^users/', include('webapp.users.urls')),
     (r'^datasets/', include('webapp.datasets.urls')),
     (r'^tags/', include('webapp.tags.urls')),
 
-    # (r'^login/$', 'django.contrib.auth.views.login'),
-    (r'^login/$', 'webapp.views.login'),
-    (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    (r'^accounts/', include('userena.urls')),
 
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './static'}),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './uploads'}),

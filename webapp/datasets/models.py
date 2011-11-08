@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from webapp.users.models import UserProfile
 from tagging.fields import TagField
 from tagging.models import Tag
 
@@ -10,7 +10,7 @@ class Dataset(models.Model):
     data = models.FileField(upload_to='data')
     uploaded = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(UserProfile)
     downloads = models.IntegerField(default=0)
 
     def __unicode__(self):
