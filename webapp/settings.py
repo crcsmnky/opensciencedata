@@ -129,11 +129,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.sites',
     # 'django.contrib.admindocs',
     'webapp.datasets',
     'webapp.tags',
     'webapp.users',
     'tagging',
+    'userena',
+    'guardian',
+    'easy_thumbnails',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -159,12 +163,20 @@ LOGGING = {
     }
 }
 
-LOGIN_URL = '/login'
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+ANONYMOUS_USER_ID = -1
+USERENA_MUGSHOT_DEFAULT = 'monsterid'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+AUTH_PROFILE_MODULE = 'users.UserProfile'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
 LOGIN_REDIRECT_URL = '/'
+USERENA_SIGNIN_REDIRECT_URL = '/'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 FORCE_LOWERCASE_TAGS = True
 
-try:
-    from s3_settings import *
-except ImportError:
-    pass
+from secure_settings import *

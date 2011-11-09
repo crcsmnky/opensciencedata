@@ -169,7 +169,4 @@ USERENA_SIGNIN_REDIRECT_URL = '/'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 FORCE_LOWERCASE_TAGS = True
 
-try:
-    from s3_settings import *
-except ImportError:
-    pass
+from secure_settings import *

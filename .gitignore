@@ -1,2 +1,4 @@
 .DS_Store
 webapp/s3_settings.py
+
+webapp/secure_settings.py
