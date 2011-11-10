@@ -1,5 +1,6 @@
 #!/bin/sh
 python webapp/manage.py syncdb --noinput
+python webapp/manage.py check_permissions
 python mkadmin.py
 mkdir -p /home/dotcloud/data/media /home/dotcloud/data/static
 python webapp/manage.py collectstatic --noinput
