@@ -5,6 +5,7 @@ from django.core.servers.basehttp import FileWrapper
 from django.template import RequestContext
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.contrib.auth.models import User
 
 from webapp.datasets.models import Dataset
 from webapp.datasets.forms import DatasetForm
@@ -34,7 +35,8 @@ def add_dataset(request):
     form = DatasetForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         new_dataset = form.save(commit=False)
-        new_dataset.user = request.user
+        profile = get_object_or_404(UserProfile, user=request.user)
+        new_dataset.user = profile
         new_dataset.save()
         return redirect('/datasets/%d/view' % new_dataset.id)
 
@@ -45,10 +47,8 @@ def add_dataset(request):
 
 def view_dataset(request, id):
     dataset = get_object_or_404(Dataset, id=id)
-    tags = dataset.tags.split()
     return render_to_response('datasets/view.html',{
         'dataset': dataset,
-        'tags':tags,
     }, RequestContext(request))
 
 
