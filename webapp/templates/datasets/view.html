@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
+{% load tagging_tags %}
+
 {% block header %}
-    <h2>{{ dataset.name }} <small>uploaded by {{ dataset.user.username }}</small></h2>
+    <h2>{{ dataset.name }} <small>uploaded by {{ dataset.user.user.username }}</small></h2>
 {% endblock header %}
 
 {% block content %}
@@ -10,8 +12,9 @@
     <p><strong>uploaded:</strong> {{ dataset.uploaded }}</p>
     <p><strong>updated:</strong> {{ dataset.updated }}</p>
     <p><strong>downloads:</strong> {{ dataset.downloads }}</p>
-    <p><strong>tags:</strong> 
-        {% for tag in tags %}
+    <p><strong>tags:</strong>
+        {% tags_for_object dataset as tag_list %}
+        {% for tag in tag_list %}
             <a href="/tags/{{ tag }}">{{ tag }}</a>
         {% endfor %}
     </p>
