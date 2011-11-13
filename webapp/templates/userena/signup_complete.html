@@ -6,7 +6,11 @@
 
 {% block content %}
     {% if userena_activation_required %}
-        <p>You have been send an e-mail with an activation link to the supplied email.</p>
+        <p>
+            Now you have to activate your account. Check your email for a message 
+            from <a href="mailto:opendata.science@gmail.com">opendata.science@gmail.com</a>. 
+            Click the link in that message to activate your account.
+        </p>
         <p>We will store your signup information for {{ userena_activation_days }} days on our server.</p>
     {% else  %}
         <p>You can now use the supplied credentials to signin.</p>
